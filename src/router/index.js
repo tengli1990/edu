@@ -1,23 +1,49 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Layout from "@/layout";
 
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home
+    path: "/center",
+    component: Layout,
+    children: [
+      {
+        path: "index",
+        name: "CenterIndex",
+        component: () => import("@/views/center/index.vue"),
+        meta: { title: "个人中心" },
+        children: [
+          {
+            path: "i1",
+            name: "CenterIndexi1",
+            component: () => import("@/views/center/index.vue"),
+            meta: { title: "个人中心1" }
+          }
+        ]
+      }
+    ]
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/report",
+    component: Layout,
+    children: [
+      {
+        path: "form",
+        name: "ReportHome",
+        component: () => import("@/views/report/form.vue"),
+        meta: { title: "报名表单" },
+        children: [
+          {
+            path: "form",
+            name: "ReportHome",
+            component: () => import("@/views/report/form.vue"),
+            meta: { title: "报名表单" }
+          }
+        ]
+      }
+    ]
   }
 ];
 
