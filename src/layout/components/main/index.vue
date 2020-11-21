@@ -23,8 +23,6 @@ export default {
 
 <style lang="less" scoped>
 .app-main {
-  margin-left: 260px;
   min-height: 200px;
-  background: #fff;
 }
 </style>

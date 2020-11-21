@@ -3,16 +3,18 @@
     <div class="banner"></div>
     <div class="navbar">
       <ul>
-        <li
-          :class="{
-            current: isCurrent(route.path, route)
-          }"
-          v-for="(route, index) in routeList"
-          :key="index"
-          @click="onTab(route.path, route)"
-        >
-          {{ route.children[0].meta.title }}
-        </li>
+        <template v-for="(route, index) in routeList">
+          <li
+            :class="{
+              current: isCurrent(route.path, route)
+            }"
+            :key="index"
+            @click="onTab(route.path, route)"
+            v-if="route.children"
+          >
+            {{ route.children[0].meta.title }}
+          </li>
+        </template>
       </ul>
     </div>
   </div>
@@ -28,7 +30,6 @@ export default {
       routeList: routes
     };
   },
-  computed: {},
   methods: {
     isCurrent(parentPath, route) {
       const { path } = route.children[0];
@@ -36,6 +37,9 @@ export default {
       return fullPath === this.$route.path;
     },
     onTab(parentPath, route) {
+      if (!route.children) {
+        return false;
+      }
       const { path } = route.children[0];
       const fullPath = parentPath + "/" + path;
       if (this.$route.path === fullPath) {

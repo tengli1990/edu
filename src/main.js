@@ -4,11 +4,12 @@ import router from "./router";
 import store from "./store";
 import Antd from "ant-design-vue";
 import "./assets/style/global.less";
-import "ant-design-vue/dist/antd.css";
+import GlobalComponent from './components'
 
 Vue.config.productionTip = false;
 
 Vue.use(Antd);
+Vue.use(GlobalComponent)
 
 new Vue({
   router,

@@ -1,15 +1,14 @@
 <template>
   <div class="app-sidebar">
     <ul>
-      <li
-        class="item"
-        :class="{ current: currentPath == route.path }"
-        v-for="(route, index) in data"
-        :key="index"
-        @click="onSideTab(route)"
-      >
-        {{ route.meta.title }}
-      </li>
+      <template v-for="(item, index) in data">
+        <li class="module-title" :key="index" v-if="item.module">
+          {{item.title}}
+        </li>
+        <li class="item" :key="index" @click="onSideTab(item)" v-else>
+          {{item.name}}
+        </li>
+      </template>
     </ul>
   </div>
 </template>
@@ -37,12 +36,9 @@ export default {
     this.currentPath = RegExp.$1;
   },
   methods: {
-    onSideTab(route) {
-      if (route.path == this.currentPath) {
-        return;
-      }
+    onSideTab(item) {
       this.$router.push({
-        path: this.$route.path + "/" + route.path
+        path: item.path
       });
     }
   }
@@ -58,6 +54,19 @@ export default {
   ul {
     li.current {
       background: #ccc;
+    }
+
+    li.module-title{
+      background:linear-gradient(#ddd,#f6f6f6);
+      font-weight: bold;
+      padding:0 15px;
+      line-height: 40px;
+    }
+
+    li.item{
+      padding:0 15px;
+      border-bottom:1px dotted #d8d8d8;
+      line-height: 40px;
     }
   }
 }
