@@ -19,9 +19,11 @@ function install (Vue) {
     Component.install(Vue)
   })
 
+  CommonJs.install(Vue)
   for (let key in CommonJs) {
     Vue.prototype[key] = CommonJs[key]
   }
+  
 }
 
 const GlobalComponent = {

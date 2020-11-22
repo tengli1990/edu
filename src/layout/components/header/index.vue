@@ -3,7 +3,7 @@
     <div class="site">
       <div class="site-main">
         <a href="">某某人</a>
-        <a @click="onLogin">登陆</a>
+        <a @click="onLogin">登录</a>
         <a class="" href="">退出登录</a>
       </div>
     </div>
