@@ -38,26 +38,6 @@
           </div>
         </a-form-item>
 
-        <!-- <a-form-item>
-          <div class="check">
-            <div class="d1">
-              <a-input
-                v-model=""
-                type="number"
-                size="large"
-                maxlength="6"
-                placeholder="请输入验证码"
-              >
-              </a-input>
-            </div>
-            <a class="img-code"
-              ><img
-                src="https://www.danke.com/get-img-code/400/140?mobile=15810660233&time=1605886566770"
-                alt=""
-            /></a>
-          </div>
-        </a-form-item> -->
-
         <a-form-item>
           <a-button
             class="submit-btn"
@@ -89,7 +69,7 @@
             placeholder="请输入图片验证码"
           ></a-input>
           <a href=""><img
-              src="https://www.danke.com/get-img-code/400/140?mobile=15810660233&time=1605886566770"
+              src=""
               alt=""/>
           </a>
         </div>
