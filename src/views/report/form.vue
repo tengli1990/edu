@@ -16,6 +16,21 @@
             <a-input />
           </a-form-model-item>
 
+          <a-form-model-item label="头像">
+            <a-upload
+              name="avatar"
+              list-type="picture-card"
+              class="avatar-uploader"
+              :show-upload-list="false"
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              :before-upload="beforeUpload"
+              @change="handleChange"
+            >
+              <img v-if="form.imageUrl" :src="form.imageUrl" alt="avatar" />
+              <a-icon v-else size="large" :type="loading ?  'loading' : 'user-add'" style="font-size:35px;color:#999;" />
+            </a-upload>
+          </a-form-model-item>
+
           <a-form-model-item label="性别">
             <a-radio-group>
               <a-radio value="a">
@@ -118,6 +133,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -142,7 +158,9 @@ export default {
       },
       rules: {
 
-      }
+      },
+      loading:false,
+
       
     }
   },
@@ -156,7 +174,32 @@ export default {
           return false;
         }
       });
-    }
+    },
+    handleChange(info) {
+      if (info.file.status === 'uploading') {
+        this.loading = true;
+        return;
+      }
+      if (info.file.status === 'done') {
+        // Get this url from response in real world.
+        this.$getImgBase64(info.file.originFileObj, imageUrl => {
+          this.form.imageUrl = imageUrl;
+          this.loading = false;
+          console.log(this.form.imageUrl)
+        });
+      }
+    },
+    beforeUpload(file) {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        this.$message.error('You can only upload JPG file!');
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message.error('Image must smaller than 2MB!');
+      }
+      return isJpgOrPng && isLt2M;
+    },
   }
 };
 </script>
@@ -169,5 +212,10 @@ export default {
 .submit-button{
   margin-top: 15px;
   text-align: right;
+}
+
+.avatar-uploader {
+  margin-top: 10px;
+  margin-bottom: -20px;
 }
 </style>

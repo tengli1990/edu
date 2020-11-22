@@ -1,10 +1,18 @@
 <template>
   <div class="app-head">
+    <div class="site">
+      <div class="site-main">
+        <a href="">某某人</a>
+        <a @click="onLogin">登陆</a>
+        <a class="" href="">退出登录</a>
+      </div>
+    </div>
     <div class="banner"></div>
     <div class="navbar">
-      <ul>
+      <ul class="navul">
         <template v-for="(route, index) in routeList">
           <li
+            class="navli"
             :class="{
               current: isCurrent(route.path, route)
             }"
@@ -48,36 +56,16 @@ export default {
       this.$router.push({
         path: fullPath
       });
+    },
+    onLogin(){
+      this.$router.push({
+        path:'/login',
+        query:{
+          redirect:encodeURIComponent(this.$route.fullPath)
+        }
+      })
     }
   }
 };
 </script>
 
-<style lang="less" scoped>
-.app-head {
-  height: 140px;
-  background: #fff;
-}
-.banner {
-  height: 100px;
-}
-.navbar {
-  height: 40px;
-  line-height: 40px;
-  background: #3dbcc6;
-}
-ul {
-  width: 1200px;
-  margin: 0 auto;
-}
-ul li {
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 10px;
-  padding: 0 20px;
-  color: #fff;
-  &.current {
-    background: #128b94;
-  }
-}
-</style>

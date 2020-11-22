@@ -6,10 +6,14 @@ Vue.use(VueRouter);
 
 export const routes = [
   {
+    path: "/",
+    redirect:'/login',
+  },
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/login"),
-    meta: { title: "登陆", autoLoad: false }
+    meta: { title: "登陆" }
   },
   {
     path: "/center",
@@ -20,12 +24,6 @@ export const routes = [
         name: "CenterIndex",
         component: () => import("@/views/center/index.vue"),
         meta: { title: "个人中心" }
-      },
-      {
-        path: "index1",
-        name: "CenterIndex1",
-        component: () => import("@/views/center/index.vue"),
-        meta: { title: "个人中心1" }
       }
     ]
   },
@@ -35,17 +33,10 @@ export const routes = [
     children: [
       {
         path: "form",
-        name: "ReportHome",
+        name: "ReportForm",
         component: () => import("@/views/report/form.vue"),
         meta: { title: "报名表单" },
-        children: [
-          {
-            path: "i4",
-            name: "ReportHomei4",
-            component: () => import("@/views/report/form.vue"),
-            meta: { title: "报名表单" }
-          }
-        ]
+        
       }
     ]
   }
